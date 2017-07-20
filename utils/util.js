@@ -94,10 +94,15 @@ function setTimeReadable(timeStr){
   return this.getDateDiff(new Date(timeStr))
 }
 
+function isMobilePhone(phoneStr){
+  return /^(\+?0?86\-?)?1[345789]\d{9}$/.test(phoneStr)
+}
+
 module.exports = {
   formatTime: formatTime,
   getDateDiff: getDateDiff,
   getDateDistanceOfHours: getDateDistanceOfHours,
-  setTimeReadable: setTimeReadable
+  setTimeReadable: setTimeReadable,
+  isMobilePhone: isMobilePhone
 }
 

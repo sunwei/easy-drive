@@ -133,8 +133,6 @@ Page({
         }
       })
     },
-    onAppointmentButtonClicked() {
-    },
     onClicked(e) {
       let action = e.currentTarget.dataset.id;
       switch(action){
@@ -148,7 +146,7 @@ Page({
           this.onCallButtonClicked()
           break
         case 'appointment':
-          this.onAppointmentButtonClicked()
+          App.WxService.navigateTo('/pages/appointment/index')
           break
       }
     },

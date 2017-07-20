@@ -3,6 +3,7 @@
     "pages/start/index",
     "pages/index/index",
     "pages/login/index",
+    "pages/appointment/index",
     "pages/comment/index"
   ],
   "window": {

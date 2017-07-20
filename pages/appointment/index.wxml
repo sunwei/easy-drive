@@ -1,0 +1,32 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__bd">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errorMessage}}</view>
+
+    <view class="empty"/>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+              <view class="weui-label">手机号</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input"  bindinput="bindPhoneInput" placeholder="请输入手机号" type="number" />
+          </view>
+      </view>
+    </view>
+    <view class="weui-cells__tips">手机号只有刘教练可见</view>
+
+    <view class="empty"/>
+
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea id="content" bindinput="bindContentChange" class="weui-textarea" placeholder="你可以在这里发布预约的细节，如关于约乘试驾、如关于预约科目考试的相关问题..." style="height: 10.3em" maxlength="300" />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="" bindtap="bindPublish">预约</button>
+    </view>
+  </view>
+</view>
