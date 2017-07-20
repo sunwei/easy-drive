@@ -6,13 +6,13 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea id="content" bindinput="bindContentChange" class="weui-textarea" placeholder="请输入评论" style="height: 8.3em" />
+          <textarea id="content" bindinput="bindContentChange" class="weui-textarea" placeholder="你可以在这里发布消息、寻求帮助或添加评论" style="height: 18.3em" maxlength="300" />
         </view>
       </view>
     </view>
 
     <view class="weui-btn-area">
-      <button class="weui-btn" type="primary" bindtap="bindPublish">发布</button>
+      <button class="weui-btn" type="" bindtap="bindPublish">发布</button>
     </view>
   </view>
 </view>

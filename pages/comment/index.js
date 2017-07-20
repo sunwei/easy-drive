@@ -1,18 +1,17 @@
 import Config from '../../etc/config'
+var util = require('../../utils/util.js');
+
 const App = getApp()
 
 Page({
   data: {
     showTopTips: false,
     content: "",
-    errorMessage: "error Message",
-    topicId: ""
+    errorMessage: "提示消息"
   },
-  onLoad(option) {
-    console.log(option)
-    this.setData({
-      topicId: option.id
-    })
+  onLoad() {
+    this.events = App.HttpResource('/events/:id', { id: '@id' })
+    this.userInfo = App.WxService.getStorageSync('userinfo')
   },
   showTopTips: function(){
     var that = this;
@@ -33,38 +32,50 @@ Page({
   bindPublish: function (e) {
     if (this.data.content === undefined || this.data.content === "") {
       this.setData({
-        errorMessage: "评论不能为空！"
+        errorMessage: "消息不能为空！"
       });
       this.showTopTips()
       return
     }
 
-    this.posts = App.HttpResource('/bbs/event/post/:id', {id: '@id'})
     var self = this;
-
     wx.showToast({
-      title: '评论发布中',
+      title: '消息发布中',
       icon: 'loading',
       duration: 5000
     });
 
-    this.posts.saveAsync({
-      "ihakula_request": Config.ihakula_request,
-      "params_string": JSON.stringify({
-        "accesstoken": App.WxService.getStorageSync('accessToken'),
-        "content": this.data.content
-      }),
-      "url": "https://bbs.sunzhongmou.com/api/v1/topic/" + this.data.topicId + "/replies"
+    this.events.saveAsync({
+      "type": 'message',
+      "avatar_url": this.userInfo.avatarUrl,
+      "loginname": this.userInfo.nickName + '@' + this.userInfo.city,
+      "title": this.data.content
     }).then(res => {
-      wx.showToast({
-        title: '发布成功',
-        icon: 'success',
-        duration: 3000
-      });
+      console.log(res)
+      if (res.success) {
+        var data = res.data
+        data.last_reply_at = util.setTimeReadable(data.last_reply_at)
+        
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success',
+          duration: 3000
+        });
 
-      wx.navigateBack({
-        delta: 1
-      })
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2];
+        console.log(prevPage)
+        prevPage.data.postsList.unshift(data)
+
+        prevPage.setData({
+          message: (prevPage.data.message + 1),
+          postsList: prevPage.data.postsList
+        })
+
+        wx.navigateBack({
+          delta: 1
+        })
+      }
     })
 
   }

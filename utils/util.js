@@ -76,8 +76,28 @@ function getDateDiff (dateTimeStamp) {
   return result;
 }
 
+function getDateDistanceOfHours(dateTimeStamp) {
+  var minute = 1000 * 60;
+  var hour = minute * 60;
+
+  var now = new Date().getTime();
+  var diffValue = now - dateTimeStamp;
+  if (diffValue < 0) {
+    return 0;
+  } else {
+    var hourC = diffValue / hour;
+    return hourC
+  }
+}
+
+function setTimeReadable(timeStr){
+  return this.getDateDiff(new Date(timeStr))
+}
+
 module.exports = {
   formatTime: formatTime,
-  getDateDiff: getDateDiff
+  getDateDiff: getDateDiff,
+  getDateDistanceOfHours: getDateDistanceOfHours,
+  setTimeReadable: setTimeReadable
 }
 
