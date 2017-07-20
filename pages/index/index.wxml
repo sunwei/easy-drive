@@ -1,0 +1,35 @@
+<import src="../common/topic-list.wxml"/>  
+
+<view class="page">
+    <view class="main-func">
+      <view  bindtap="bindViewTap" class="userinfo">
+		    <image class="userinfo-avatar" src="../../assets/images/home/coach_liu.png" background-size="cover"></image>
+		    <text class="userinfo-nickname">{{ coachInfo.nickName }}</text>
+        <text class="userinfo-description">{{ coachInfo.description }}</text>
+	    </view>
+
+      <view class="weui-grids non-border">
+        <navigator bindtap="onClicked" class="weui-grid non-border item" data-id="like">
+          <image class="weui-grid__icon item-avatar" src="../../assets/images/home/home_around.png"></image>
+          <view class="weui-grid__label item-text">{{like}}</view>
+        </navigator>
+        <navigator bindtap="onClicked" class="weui-grid non-border item" data-id="message">
+          <image class="weui-grid__icon item-avatar" src="../../assets/images/home/home_life.png"></image>
+          <view class="weui-grid__label item-text">{{message}}</view>
+        </navigator>
+        <navigator bindtap="onClicked" class="weui-grid non-border item" data-id="call">
+          <image class="weui-grid__icon item-avatar" src="../../assets/images/home/home_card.png"></image>
+          <view class="weui-grid__label item-text">咨询</view>
+        </navigator>
+        <navigator bindtap="onClicked" class="weui-grid non-border item" data-id="appointment">
+          <image class="weui-grid__icon item-avatar" src="../../assets/images/home/home_safe.png"></image>
+          <view class="weui-grid__label item-text">预约</view>
+        </navigator>
+      </view>
+    </view>
+
+
+    <view class="page__bd">
+        <template is="topic-list" data="{{ postsList }}"/>
+    </view>
+</view>

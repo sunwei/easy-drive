@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/start/index",
+    "pages/index/index",
+    "pages/login/index",
+    "pages/comment/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f6ee55",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "",
+    "backgroundColor": "#f6ee55",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh":"true"
+  },
+  "debug": false
+}
