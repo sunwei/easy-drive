@@ -26,12 +26,12 @@ Page({
     onPullDownRefresh() {
         console.info('onPullDownRefresh')
         this.setData({
-            postsList: [],
             page: 1
         })
         this.fetchData()
     },
     onReachBottom() {
+      console.info('onReachBottom')
       this.fetchData()
     },
     analyseData(events) {
@@ -174,9 +174,14 @@ Page({
             sourceJson: res.data
           })
           self.analyseData(res.data.events)
+          wx.stopPullDownRefresh()
         })
       } else {
-        let totalPageNumber = this.data.sourceJson.events % this.data.postPerPage
+        console.log(this.data.sourceJson)
+        let totalPageNumber = this.data.sourceJson.events.length / this.data.postPerPage +  this.data.sourceJson.events.length % this.data.postPerPage
+        console.log('???---???')
+        console.log(totalPageNumber)
+        console.log(this.data.page)
         if(totalPageNumber <= this.data.page){
           return;
         }
@@ -204,26 +209,29 @@ Page({
         })
     },
     onShareAppMessage: function () {
+      var self = this
         return {
           title: '首页 - 刘教学车',
           path: '/pages/index/index',
-          success: function(res) {
-            this.events.saveAsync({
-              "type": 'share',
-              "avatar_url": this.userInfo.avatarUrl,
-              "loginname": this.userInfo.nickName + '@' + this.userInfo.city,
-              "title": '谢谢你的分享！Easy life, easy drive!'
-            }).then(res => {
-              console.log(res)
-              if (res.success) {
-                var data = res.data
-                data.last_reply_at = this.setTimeReadable(data.last_reply_at)
-                self.data.postsList.unshift(data)
-                self.setData({
-                  postsList: self.data.postsList
-                })
-              }
-            })
+          complete: function (res) {
+            if (res.errMsg === 'shareAppMessage:ok') {
+              self.events.saveAsync({
+                "type": 'share',
+                "avatar_url": self.userInfo.avatarUrl,
+                "loginname": self.userInfo.nickName + '@' + self.userInfo.city,
+                "title": '谢谢你的分享！Easy life, easy drive!'
+              }).then(res => {
+                console.log(res)
+                if (res.success) {
+                  var data = res.data
+                  data.last_reply_at = self.setTimeReadable(data.last_reply_at)
+                  self.data.postsList.unshift(data)
+                  self.setData({
+                    postsList: self.data.postsList
+                  })
+                }
+              })
+            }
           },
           fail: function(res) {
           }
