@@ -208,6 +208,22 @@ Page({
           title: '首页 - 刘教学车',
           path: '/pages/index/index',
           success: function(res) {
+            this.events.saveAsync({
+              "type": 'share',
+              "avatar_url": this.userInfo.avatarUrl,
+              "loginname": this.userInfo.nickName + '@' + this.userInfo.city,
+              "title": '谢谢你的分享！Easy life, easy drive!'
+            }).then(res => {
+              console.log(res)
+              if (res.success) {
+                var data = res.data
+                data.last_reply_at = this.setTimeReadable(data.last_reply_at)
+                self.data.postsList.unshift(data)
+                self.setData({
+                  postsList: self.data.postsList
+                })
+              }
+            })
           },
           fail: function(res) {
           }
