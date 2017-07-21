@@ -87,8 +87,8 @@ function getDateDistanceOfHours(dateTimeStamp) {
   var minute = 1000 * 60;
   var hour = minute * 60;
 
-  var now = new Date().getTime();
-  var diffValue = now - dateTimeStamp;
+  var now = new Date();
+  var diffValue = now.getTime() - dateTimeStamp.getTime();
   if (diffValue < 0) {
     return 0;
   } else {
