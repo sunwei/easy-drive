@@ -49,8 +49,8 @@ Page({
         message: messageCount
       })
     },
-    setTimeReadable(timeStr){
-      return util.getDateDiff(new Date(timeStr))
+    setTimeReadable(timeStr){      
+      return util.getDateDiff(util.newDateFromString(timeStr))
     },
     isLastLike4HoursAgo(){
       if(!this.lastLikeDate){return true}
@@ -166,7 +166,7 @@ Page({
           let firstPagePosts = res.data.events.slice(0, this.data.postPerPage)
           self.setData({
             postsList: self.data.postsList.concat(firstPagePosts.map(function (item) {
-              item.last_reply_at = util.getDateDiff(new Date(item.last_reply_at));
+              item.last_reply_at = self.setTimeReadable(item.last_reply_at);
               return item;
             })),
             coachInfo: res.data.coachInfo,
@@ -190,7 +190,7 @@ Page({
         let thePagePosts = this.data.sourceJson.events.slice(lastIndex, lastIndex + this.data.postPerPage)
         this.setData({
           postsList: self.data.postsList.concat(thePagePosts.map(function (item) {
-            item.last_reply_at = util.getDateDiff(new Date(item.last_reply_at));
+            item.last_reply_at = self.setTimeReadable(item.last_reply_at);
             return item;
           })),
           page: (self.data.page + 1)

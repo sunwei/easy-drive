@@ -46,8 +46,14 @@ function getDateDiff (dateTimeStamp) {
   var halfamonth = day * 15;
   var month = day * 30;
   var year = day * 365;
-  var now = new Date().getTime();
-  var diffValue = now - dateTimeStamp;
+
+  var now = new Date();
+  console.log('????')
+  console.log(now)
+  console.log(dateTimeStamp)
+  console.log(dateTimeStamp.getTime())
+
+  var diffValue = now.getTime() - dateTimeStamp.getTime();
   if(diffValue < 0){
     //非法操作
     return '数据出错';
@@ -58,6 +64,7 @@ function getDateDiff (dateTimeStamp) {
   var dayC = diffValue / day;
   var hourC = diffValue / hour;
   var minC = diffValue / minute;
+
   if(yearC >= 1){
     result = parseInt(yearC) + '年以前';
   }else if(monthC >= 1){
@@ -98,11 +105,21 @@ function isMobilePhone(phoneStr){
   return /^(\+?0?86\-?)?1[345789]\d{9}$/.test(phoneStr)
 }
 
+// 2017-07-21 01:54:26
+function newDateFromString(dateStr){
+  var dateStrArr = dateStr.split(' ')
+  var dateArr = dateStrArr[0].split('-')
+  var timeArr = dateStrArr[1].split(':')
+
+  return new Date(parseInt(dateArr[0]), parseInt(dateArr[1]) - 1, parseInt(dateArr[2]), parseInt(timeArr[0]) + 8, parseInt(timeArr[1]), parseInt(timeArr[2]))
+}
+
 module.exports = {
   formatTime: formatTime,
   getDateDiff: getDateDiff,
   getDateDistanceOfHours: getDateDistanceOfHours,
   setTimeReadable: setTimeReadable,
-  isMobilePhone: isMobilePhone
+  isMobilePhone: isMobilePhone,
+  newDateFromString: newDateFromString
 }
 
