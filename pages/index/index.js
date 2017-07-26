@@ -167,6 +167,14 @@ Page({
           self.setData({
             postsList: self.data.postsList.concat(firstPagePosts.map(function (item) {
               item.last_reply_at = self.setTimeReadable(item.last_reply_at);
+              if (item.author.loginname === 'undefined@undefined' 
+                || item.author.loginname === '　@' ){
+                item.author.loginname = '匿名用户'
+              }
+              if (item.author.avatar_url === '' 
+                || item.author.avatar_url === undefined){
+                item.author.avatar_url = '../../assets/images/2107_logo_64*64.png'
+                }
               return item;
             })),
             coachInfo: res.data.coachInfo,
@@ -179,9 +187,6 @@ Page({
       } else {
         console.log(this.data.sourceJson)
         let totalPageNumber = this.data.sourceJson.events.length / this.data.postPerPage +  this.data.sourceJson.events.length % this.data.postPerPage
-        console.log('???---???')
-        console.log(totalPageNumber)
-        console.log(this.data.page)
         if(totalPageNumber <= this.data.page){
           return;
         }
@@ -191,6 +196,14 @@ Page({
         this.setData({
           postsList: self.data.postsList.concat(thePagePosts.map(function (item) {
             item.last_reply_at = self.setTimeReadable(item.last_reply_at);
+            if (item.author.loginname === 'undefined@undefined'
+              || item.author.loginname === '　@') {
+              item.author.loginname = '匿名用户'
+            }
+            if (item.author.avatar_url === ''
+              || item.author.avatar_url === undefined) {
+              item.author.avatar_url = '../../assets/images/2107_logo_64*64.png'
+            }
             return item;
           })),
           page: (self.data.page + 1)

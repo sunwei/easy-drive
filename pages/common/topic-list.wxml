@@ -19,7 +19,7 @@
               <view class="author-name">{{item.author.loginname}}</view>
               <view class="posts-title">{{item.title}}</view>
               <view class="posts-last-reply">{{item.last_reply_at}}</view>
-              <view class="posts-tag hot" wx:if="{{item.author.loginname === 'liushanliu'}}">刘教真言</view>
+              <view class="posts-tag hot" wx:if="{{item.author.loginname === '刘教练@Wuhan'}}">刘教真言</view>
             </view>
 
           </view>
