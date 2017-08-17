@@ -1,25 +1,7 @@
-function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-
-module.exports = {
-  formatTime: formatTime
-}
-
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -30,13 +12,18 @@ function formatTime(date) {
   var minute = date.getMinutes()
   var second = date.getSeconds()
 
-
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+function formatDate(date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
 
-function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 function getDateDiff (dateTimeStamp) {
@@ -48,11 +35,6 @@ function getDateDiff (dateTimeStamp) {
   var year = day * 365;
 
   var now = new Date();
-  console.log('????')
-  console.log(now)
-  console.log(dateTimeStamp)
-  console.log(dateTimeStamp.getTime())
-
   var diffValue = now.getTime() - dateTimeStamp.getTime();
   if(diffValue < 0){
     //非法操作
@@ -111,7 +93,27 @@ function newDateFromString(dateStr){
   var dateArr = dateStrArr[0].split('-')
   var timeArr = dateStrArr[1].split(':')
 
-  return new Date(parseInt(dateArr[0]), parseInt(dateArr[1]) - 1, parseInt(dateArr[2]), parseInt(timeArr[0]) + 8, parseInt(timeArr[1]), parseInt(timeArr[2]))
+  return new Date(parseInt(dateArr[0]), parseInt(dateArr[1]) - 1, parseInt(dateArr[2]), parseInt(timeArr[0]), parseInt(timeArr[1]), parseInt(timeArr[2]))
+}
+
+Date.prototype.format = function (format) //author: meizz 
+{
+  var o = {
+    "M+": this.getMonth() + 1, //month 
+    "d+": this.getDate(),    //day 
+    "h+": this.getHours(),   //hour 
+    "m+": this.getMinutes(), //minute 
+    "s+": this.getSeconds(), //second 
+    "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter 
+    "S": this.getMilliseconds() //millisecond 
+  }
+  if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+    (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o) if (new RegExp("(" + k + ")").test(format))
+    format = format.replace(RegExp.$1,
+      RegExp.$1.length == 1 ? o[k] :
+        ("00" + o[k]).substr(("" + o[k]).length));
+  return format;
 }
 
 module.exports = {
@@ -120,6 +122,7 @@ module.exports = {
   getDateDistanceOfHours: getDateDistanceOfHours,
   setTimeReadable: setTimeReadable,
   isMobilePhone: isMobilePhone,
-  newDateFromString: newDateFromString
+  newDateFromString: newDateFromString,
+  formatDate: formatDate
 }
 

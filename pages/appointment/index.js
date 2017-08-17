@@ -11,7 +11,6 @@ Page({
     errorMessage: "提示消息"
   },
   onLoad() {
-    this.events = App.HttpResource('/events/:id', { id: '@id' })
     this.userInfo = App.WxService.getStorageSync('userinfo')
   },
   showTopTips: function(){
@@ -58,7 +57,6 @@ Page({
       return
     }
 
-
     var self = this;
     wx.showToast({
       title: '预约发布中...',
@@ -66,39 +64,28 @@ Page({
       duration: 5000
     });
 
-    this.events.saveAsync({
+
+    App.updateJsonFile({
       "type": 'appointment',
       "avatar_url": this.userInfo.avatarUrl,
       "loginname": this.userInfo.nickName + '@' + this.userInfo.city,
       "title": '系统消息：您的预约己收到，刘教练会随后联系您，请保持电话畅通。',
       "content": this.data.content,
       "phone": this.data.phone
-    }).then(res => {
-      console.log(res)
-      if (res.success) {
-        var data = res.data
-        data.last_reply_at = util.setTimeReadable(data.last_reply_at)
-        
-        wx.showToast({
-          title: '预约成功',
-          icon: 'success',
-          duration: 3000
-        });
+    }, function () {
+      wx.showToast({
+        title: '预约成功',
+        icon: 'success',
+        duration: 3000
+      });
 
-        var pages = getCurrentPages();
-        var prevPage = pages[pages.length - 2];
-        console.log(prevPage)
-        prevPage.data.postsList.unshift(data)
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2];
+      prevPage.syncData()
 
-        prevPage.setData({
-          postsList: prevPage.data.postsList
-        })
-
-        wx.navigateBack({
-          delta: 1
-        })
-      }
+      wx.navigateBack({
+        delta: 1
+      })
     })
-
   }
 });

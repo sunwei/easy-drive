@@ -9,30 +9,40 @@ Page({
       like: 0,
       message: 0,
       postsList: [],
-      hidden: false,
-      page: 1,
-      sourceJson: null,
-      postPerPage: 5
     },
     onLoad() {
       this.lastLikeDate = null
       this.userInfo = App.WxService.getStorageSync('userinfo')
-      this.posts = App.HttpResource('/easy-drive/:id', {id: '@id'})
-      this.events = App.HttpResource('/events/:id', { id: '@id' })
       this.fetchData()
     },
     onShow() {
     },
     onPullDownRefresh() {
         console.info('onPullDownRefresh')
-        this.setData({
-            page: 1
-        })
         this.fetchData()
     },
     onReachBottom() {
       console.info('onReachBottom')
-      this.fetchData()
+    },
+    syncData() {
+      var self = this
+      let postList = App.globalData.events
+      self.setData({
+        postsList: postList.map(function (item) {
+          item.last_reply_at = self.setTimeReadable(item.last_reply_at);
+          if (item.author.loginname === 'undefined@undefined'
+            || item.author.loginname === '　@') {
+            item.author.loginname = '匿名用户'
+          }
+          if (item.author.avatar_url === ''
+            || item.author.avatar_url === undefined) {
+            item.author.avatar_url = '../../assets/images/2107_logo_64*64.png'
+          }
+          return item;
+        }),
+        coachInfo: App.globalData.coachInfo
+      })
+      self.analyseData(postList)
     },
     analyseData(events) {
       var likeCount = 0
@@ -80,30 +90,20 @@ Page({
         duration: 5000
       });
 
-      this.events.saveAsync({
+      App.updateJsonFile({
         "type": 'like',
         "avatar_url": this.userInfo.avatarUrl,
         "loginname": this.userInfo.nickName + '@' + this.userInfo.city,
         "title": '给刘教练点了个赞！加油！'
-      }).then(res => {
-        console.log(res)
-        if(res.success){
-          var data = res.data
-          data.last_reply_at = this.setTimeReadable(data.last_reply_at)
-          self.data.postsList.unshift(data)
-          self.setData({
-            like: (self.data.like + 1),
-            postsList: self.data.postsList
-          })
-
-          self.lastLikeDate = new Date();
-          console.log(self.lastLikeDate)
-          wx.showToast({
-            title: '点赞成功',
-            icon: 'success',
-            duration: 3000
-          });
-        }
+      }, function(){
+        self.syncData()
+        self.lastLikeDate = new Date();
+        console.log(self.lastLikeDate)
+        wx.showToast({
+          title: '点赞成功',
+          icon: 'success',
+          duration: 3000
+        });
       })
     },
     onCallButtonClicked() {
@@ -113,22 +113,16 @@ Page({
         phoneNumber: this.data.coachInfo.phone,
         complete: function(res){
           if (res.errMsg === 'makePhoneCall:ok') {
-            self.events.saveAsync({
+
+            App.updateJsonFile({
               "type": 'call',
               "avatar_url": self.userInfo.avatarUrl,
               "loginname": self.userInfo.nickName + '@' + self.userInfo.city,
               "title": '向刘教练打了个电话，咨询了一些问题。'
-            }).then(res => {
-              console.log(res)
-              if (res.success) {
-                var data = res.data
-                data.last_reply_at = self.setTimeReadable(data.last_reply_at)
-                self.data.postsList.unshift(data)
-                self.setData({
-                  postsList: self.data.postsList
-                })
-              }
+            }, function () {
+              self.syncData()
             })
+
           }
         }
       })
@@ -152,74 +146,14 @@ Page({
     },
     fetchData: function () {
       var self = this;
-      self.setData({
-          hidden: false
-      });
+      this.setData({
+        postsList:[]
+      })
 
-      if (this.data.page === 1) {
-        self.setData({
-            postsList: []
-        });
-
-        this.posts.queryAsync({}).then(res => {
-          console.log(res)
-          let firstPagePosts = res.data.events.slice(0, this.data.postPerPage)
-          self.setData({
-            postsList: self.data.postsList.concat(firstPagePosts.map(function (item) {
-              item.last_reply_at = self.setTimeReadable(item.last_reply_at);
-              if (item.author.loginname === 'undefined@undefined' 
-                || item.author.loginname === '　@' ){
-                item.author.loginname = '匿名用户'
-              }
-              if (item.author.avatar_url === '' 
-                || item.author.avatar_url === undefined){
-                item.author.avatar_url = '../../assets/images/2107_logo_64*64.png'
-                }
-              return item;
-            })),
-            coachInfo: res.data.coachInfo,
-            page: (self.data.page + 1),
-            sourceJson: res.data
-          })
-          self.analyseData(res.data.events)
-          wx.stopPullDownRefresh()
-        })
-      } else {
-        console.log(this.data.sourceJson)
-        let totalPageNumber = this.data.sourceJson.events.length / this.data.postPerPage +  this.data.sourceJson.events.length % this.data.postPerPage
-        if(totalPageNumber <= this.data.page){
-          return;
-        }
-        console.log(this.data.page)
-        let lastIndex = (this.data.page - 1) * this.data.postPerPage;
-        let thePagePosts = this.data.sourceJson.events.slice(lastIndex, lastIndex + this.data.postPerPage)
-        this.setData({
-          postsList: self.data.postsList.concat(thePagePosts.map(function (item) {
-            item.last_reply_at = self.setTimeReadable(item.last_reply_at);
-            if (item.author.loginname === 'undefined@undefined'
-              || item.author.loginname === '　@') {
-              item.author.loginname = '匿名用户'
-            }
-            if (item.author.avatar_url === ''
-              || item.author.avatar_url === undefined) {
-              item.author.avatar_url = '../../assets/images/2107_logo_64*64.png'
-            }
-            return item;
-          })),
-          page: (self.data.page + 1)
-        })
-      }
-    },
-    showWarning() {
-        App.WxService.showModal({
-            title: '温馨提示',
-            content: '请进入房源详情页面，由业主邀请认证后，才可以查看相关房源的保密信息！',
-            confirmText: "确认",
-            showCancel: false,
-            success: function (res) {
-                // res.confirm
-            }
-        })
+      App.refreshJsonData(function(){
+        self.syncData()
+        wx.stopPullDownRefresh()
+      })
     },
     onShareAppMessage: function () {
       var self = this
@@ -228,22 +162,16 @@ Page({
           path: '/pages/index/index',
           complete: function (res) {
             if (res.errMsg === 'shareAppMessage:ok') {
-              self.events.saveAsync({
+
+              App.updateJsonFile({
                 "type": 'share',
                 "avatar_url": self.userInfo.avatarUrl,
                 "loginname": self.userInfo.nickName + '@' + self.userInfo.city,
                 "title": '谢谢你的分享！Easy life, easy drive!'
-              }).then(res => {
-                console.log(res)
-                if (res.success) {
-                  var data = res.data
-                  data.last_reply_at = self.setTimeReadable(data.last_reply_at)
-                  self.data.postsList.unshift(data)
-                  self.setData({
-                    postsList: self.data.postsList
-                  })
-                }
+              }, function () {
+                self.syncData()
               })
+
             }
           },
           fail: function(res) {
