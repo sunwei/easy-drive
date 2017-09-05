@@ -1,7 +1,7 @@
 # 微信小程序 《刘教学车》 - 仲谋科技 孙•仲谋™
 
-![Alt text](assets/images/preview/home.PNG) {width:300px;}
-<img src="assets/images/preview/home.PNG" alt="Home" style="width: 300px;"/>
+![Alt text](assets/images/preview/home.PNG) 
+<img src="assets/images/preview/home.PNG" alt="Home" width="300px;"/>
 
 
 ============================================================================
