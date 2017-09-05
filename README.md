@@ -1,6 +1,6 @@
 # 微信小程序 《刘教学车》 - 仲谋科技 孙•仲谋™
 
-![Alt text](assets/images/preview/home.PNG)
+![Alt text](assets/images/preview/home.PNG) {width:300px;}
 
 ============================================================================
 
