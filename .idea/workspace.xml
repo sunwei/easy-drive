@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15d9df3f-0d4e-4a23-9a07-9a9ea5279bf8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/preview/assignment.PNG" afterPath="$PROJECT_DIR$/assets/images/preview/assignment.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/preview/comment.PNG" afterPath="$PROJECT_DIR$/assets/images/preview/comment.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/preview/foward.PNG" afterPath="$PROJECT_DIR$/assets/images/preview/foward.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/preview/home.PNG" afterPath="$PROJECT_DIR$/assets/images/preview/home.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/preview/phone.PNG" afterPath="$PROJECT_DIR$/assets/images/preview/phone.PNG" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
@@ -35,7 +30,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
               <first_editor relative-caret-position="114">
-                <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+                <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -755,12 +750,12 @@
       <option name="presentableId" value="Default" />
       <updated>1502961423591</updated>
       <workItem from="1502961426079" duration="95000" />
-      <workItem from="1504613387911" duration="2558000" />
+      <workItem from="1504613387911" duration="2654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2653000" />
+    <option name="totallyTimeSpent" value="2749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -862,7 +857,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="114">
-            <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+            <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
