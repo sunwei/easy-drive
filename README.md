@@ -1,5 +1,7 @@
 # 微信小程序 《刘教学车》 - 仲谋科技 孙•仲谋™
 
+> 实际运行截图如下
+
 <div align=center>
 
 ![home](assets/images/preview/home.PNG) 
@@ -7,12 +9,18 @@
  
 </div>
 
----
-
 <div align=center>
 
 ![home](assets/images/preview/foward.PNG) 
 ![home](assets/images/preview/assignment.PNG)
+ 
+</div>
+
+> 线上版本体验 - 小程序码
+
+<div align=center>
+
+![home](assets/images/preview/mini.jpg) 
  
 </div>
 
