@@ -16,7 +16,12 @@
  
 </div>
 
-> 线上版本体验 - 小程序码
+## 如何运行源码
+
+* 需要下载微信官方小程序模拟器。[下载地址](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)
+* 下载源码，用官方工具创建空AppID项目，可本地查看
+
+## 线上版本查看
 
 <div align=center>
 
@@ -24,49 +29,16 @@
  
 </div>
 
-============================================================================
+# 合作
+
+如果你也想拥有自己的小程序，欢迎联系我们。
 
 
-Source code of our home page for [仲谋科技](https://www.sunzhongmou.com) 
-
-## How to run this on your local machine (MacOS for example)
-
-* Install **hugo** on Mac with `brew install hugo`
-* clone this repository to your local machine with `git clone https://github.com/sunzhongmou/homepage.git`
-* change in the new dir with `cd homepage`
-* and then run with `hugo server`
-* hit the homepage with any browser from `http://localhost:1313/homepage/public/`
-
-## How to preview this current version
-
-* simply click on [demo](https://www.sunzhongmou.com)
-
-## How to develop this homepage further
-
-* read the [Beginners Guide of Hugo](https://gohugo.io/overview/quickstart/) first
-* modify the theme in [partials](https://github.com/sunzhongmou/homepage/themes/hugo-creative-theme/layouts/partials) and [static](https://github.com/sunzhongmou/homepage/themes/hugo-creative-theme/static) if needed
-* edit the [config file](https://github.com/sunzhongmou/homepage/config.toml) to your needs
-
-# Adding content
-
-## News posts
-
-Just do `hugo new news/<name>.md` to create the respective news entry.
-Each news entry has a `news_archive` property that lets the user look through previous news entries via archive. To create an archive, issue `hugo new news-archive/<month>_<year>.md` and modify the other settings. The most important one is the `archive` settings that lets HUGO associate the entries correctly.
-
-## Other content
-
-Not all content can be easily extended. All pages are based on markdown files in the `content` directory. There are two types of content:
-
-* "Dynamic" content
-* "Static" content
-
-"Static" content is content that heavily interacts with its base template. For example the template will only insert most of the content by itself and only take the content of the markdown file for some description.
-
-"Dynamic" content will be created completely by the markdown file and is indicated by `type = "<anything>-post"`
-
-# Translation
-
-The homepage was designed to support translation. To translate the homepage, create a fork and edit the current language in `config.toml`. Also don't forget to modify the list of available languages and send your modifications upstream. Unfortunately there's no better way to create translations using HUGO.
-
-All content was created to allow translation without skimming though the HTML templates. Just translate the entries in `config.toml` and all files in `content`.
+[![The official website](https://img.shields.io/badge/Official_Website-仲谋科技-brightgreen.svg)](https://www.sunzhongmou.com)
+[![微博](https://img.shields.io/badge/Weibo-仲谋科技-brightgreen.svg)](http://weibo.com/zmtech)
+[![Tweet](https://img.shields.io/badge/Tweet-仲谋科技-brightgreen.svg)](https://twitter.com/szm_tech)
+[![NPM](https://img.shields.io/badge/NPM-仲谋科技-brightgreen.svg)](https://www.npmjs.com/~sunzhongmou)
+[![GitHub](https://img.shields.io/badge/GitHub-仲谋科技-brightgreen.svg)](https://github.com/sunzhongmou)
+[![简书](https://img.shields.io/badge/简书-仲谋科技-brightgreen.svg)](http://www.jianshu.com/u/e41dcab0d8ce)
+[![Youtube](https://img.shields.io/badge/Youtube-仲谋科技-brightgreen.svg)](https://www.youtube.com/channel/UCtEfD4Ut7_0Btqx2Kw104VA)
+[![优酷](https://img.shields.io/badge/优酷-仲谋科技-brightgreen.svg)](http://i.youku.com/ihakula?spm=a2hzp.8244740.0.0)
