@@ -1,13 +1,16 @@
 # 微信小程序 《刘教学车》 - 仲谋科技 孙•仲谋™
 
+<div align=center>
 ![home](assets/images/preview/home.PNG) 
 ![home](assets/images/preview/comment.PNG) 
+</div>
 
 ---
 
+<div align=center>
 ![home](assets/images/preview/foward.PNG) 
 ![home](assets/images/preview/assignment.PNG) 
-
+</div>
 
 ============================================================================
 
