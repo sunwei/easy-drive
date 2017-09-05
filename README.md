@@ -4,15 +4,15 @@
 
 <div align=center>
 
-![home](assets/images/preview/home.PNG) 
-![home](assets/images/preview/comment.PNG)
+![首页](assets/images/preview/home.PNG) 
+![留言](assets/images/preview/comment.PNG)
  
 </div>
 
 <div align=center>
 
-![home](assets/images/preview/foward.PNG) 
-![home](assets/images/preview/assignment.PNG)
+![分享](assets/images/preview/foward.PNG) 
+![预约](assets/images/preview/assignment.PNG)
  
 </div>
 
